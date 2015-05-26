@@ -1,24 +1,27 @@
 <?php
-	
-class MyPDO extends PDO
-{
-	private $_db = "";
-	private $_login = "";
-	private $_password = "";
+
+namespace Jinx\Entity;
+
+use PDO;
+
+class MyPDO extends PDO {
+	private $_db;
+	private $_login;
+	private $_password;
 
 	public function __construct($db, $login, $password)
 	{
 		$this->setDb($db);
 		$this->setLogin($login);
 		$this->setPassword($password);
-		try
-		{
+		
+		try {
 			parent::__construct($this->getDb(), $this->getLogin(), $this->getPassword()/*, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES UTF8")*/);
+		} catch (Exception $e) {
+			var_dump($e);
+			die();
 		}
-		catch (Exception $e)
-		{
-			die('Erreur de connexion');
-		}
+		
 		$this->users = new DB_Users($this);
 	}
 	

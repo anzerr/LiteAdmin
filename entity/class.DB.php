@@ -1,9 +1,11 @@
 <?php
 
+namespace Jinx\Entity;
+
 class DB
 {
-	protected $_pdo;
-	protected $_table;
+	protected static $_pdo;
+	protected static $_table;
 	
 	public function __construct($pdo, $table = "")
 	{

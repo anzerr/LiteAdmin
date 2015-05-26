@@ -1,14 +1,4 @@
 <?php
-	require_once "conf.php";
-
-	$users = $pdo->users->getObjects();
-
-	while ($user = $users->fetchObject())
-	{
-		$id = $user->id;
-		echo $id;
-		echo "\n";
-	}
-
-	die();
+	require_once dirname(__FILE__) . "/entity/class.Core.php";
+	(new Core(dirname(__FILE__)))->load()->run();
 ?>
