@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en" ng-app="LiteAdmin">
+	<head>
+		<meta charset="utf-8">
+		<title>My HTML File</title>
+		<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+		<link rel="stylesheet" href="/public/css/app.css">
+		<script type="text/javascript" src="/public/lib/angular/angular.js"></script>
+		<script type="text/javascript" src="/public/lib/angular/angular-route.js"></script>
+	</head>
+	<body>
+		<div>
+			<jinx-menu></jinx-menu>
+			<div class="jinxView" ng-view></div>
+		</div>
+		
+		<script type="text/javascript" src="/public/main.js"></script>
+		
+		<script type="text/javascript" src="/public/app/controller/basic.js"></script>
+		<script type="text/javascript" src="/public/app/directive/menu.js"></script>
+	</body>
+</html>

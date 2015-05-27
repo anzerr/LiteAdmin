@@ -1,5 +1,9 @@
 <?php
 
+namespace Jinx\Entity;
+
+use \Jinx\Controller as Controller;
+
 class Core
 {
 	private $baseDir;
@@ -17,6 +21,15 @@ class Core
 		return ($files);
 	}
 	
+	private function initController($name) {
+		try {
+			$str = 'Jinx\\Controller\\' . $name; 
+			return (new $str($this->baseDir));
+		} catch (Exception $e) {
+			return (null);
+		}
+	}
+	
 	public function __construct($dir) {
 		$this->baseDir = str_replace('\\', '/', $dir);
 		return ($this);
@@ -30,9 +43,14 @@ class Core
 	}
 	
 	public function run() {
-		$a = file_get_contents('php://input');
-		var_dump(json_encode($a));
-		var_dump(json_decode($a));
+		if (($json = json_decode(file_get_contents('php://input'))) === null) {
+			$json = array('c' => 'database', 'a' => 'index');
+		}
+		$cont = $this->initController((isset($json['c'])) ? $json['c'] : 'default');
+		if ($cont !== null) {
+			$action = (isset($json['a']) && is_callable(array($cont, $json['a']))) ? $json['a'] : 'index';
+			$cont->$action();
+		}
 	}
 }
  
