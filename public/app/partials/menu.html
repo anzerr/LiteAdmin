@@ -1,10 +1,13 @@
 <div class="jinxMenu">
-	<div ng-repeat="(key, value) in database">
-		<ul>
-			<div><b>{{value.name}}</b></div>
-			<li class="friend" ng-repeat="(kin, vin) in value.table">
-				{{vin}}
-			</li>
-		</ul>
+	<div>
+		<div ng-repeat="(key, value) in database">
+			<ul>
+				<div><b>{{value.name}}</b></div>
+				<li ng-hide="!value.display" class="friend" ng-repeat="(kin, vin) in value.table">
+					{{vin}}
+				</li>
+			</ul>
+		</div>
 	</div>
+	<div class="jinxCollaps"></div>
 </div>

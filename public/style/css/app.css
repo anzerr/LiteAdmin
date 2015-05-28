@@ -19,16 +19,26 @@ html, body {
 	left:0px;
 	width:200px;
 	height:100%;
-	overflow:hidden;
 	background-color:red;
+	-webkit-transition: left 0.5s;
+    transition: left 0.5s;
 }
 
 .jinxView {
-	position:absolute;
-	top:0px;
-	right:0px;
-	width:calc(100% - 200px);
+	margin-left:200px;
 	height:100%;
 	overflow:hidden;
 	background-color:green;
+	z-index: -1;
+	-webkit-transition: margin 0.5s;
+    transition: margin 0.5s;
+}
+
+.jinxCollaps {
+	position:absolute;
+	bottom:0px;
+	right:-32px;
+	width:32px;
+	height:32px;
+	background-color:yellow;
 }
