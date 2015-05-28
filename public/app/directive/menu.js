@@ -19,22 +19,47 @@ var Jinx;
 		}
 	};
 	
-	base.controller.directive('jinxMenu', ['$timeout', function($timeout) {
+	var _cache = [];
+	
+	base.controller.directive('jinxMenu', ['$timeout', '$http', function($timeout, $http) {
 		var link = function(scope, element, attrs) {
 			$timeout(function() {
 				collaps.init();
+			
+				base.query($http, 'SHOW DATABASES;').success(function(res) {
+					try {
+						var tmp = [];
+						
+						for (var i in res){
+							tmp.push({name:res[i].Database, display:false, loaded:false, table:[]});
+						}
+						scope.database = (_cache = tmp);
+					} catch (e) {
+						console.log('not json');
+					}
+				});
 			});
-			console.log("cat");
-			
-			scope.database = [
-				{ name: 'cat', display:false, table: ['table1', 'table2', 'table3', 'table4', 'table5'] },
-				{ name: 'dog', display:false, table: ['table1', 'table2', 'table3', 'table4', 'table5'] },
-				{ name: 'fine', display:false, table: ['table1', 'table2', 'table3', 'table4', 'table5'] },
-				{ name: 'jake', display:false, table: ['table1', 'table2', 'table3', 'table4', 'table5'] },
-				{ name: 'deus', display:false, table: ['table1', 'table2', 'table3', 'table4', 'table5'] },
-			]
-			
-			scope.name = "jake the dog";
+
+			scope.database = _cache;
+
+			scope.loadTables = function(k) {
+				var row = scope.database[k];
+				
+				if (!row.loaded) {
+					base.query($http, 'SHOW TABLES from ' + row.name + ';').success(function(res) {
+						console.log(res);
+						var tmp = [];
+						
+						for (var i in res){
+							tmp.push(res[i][Object.keys(res[i])[0]]);
+						}
+						row.table = tmp;
+						row.loaded = true;
+					});
+				}
+				
+				scope.database[k].display = !scope.database[k].display;
+			}
 		}
 		
 		return {

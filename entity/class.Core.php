@@ -43,7 +43,7 @@ class Core
 	}
 	
 	public function run() {
-		if (($json = json_decode(file_get_contents('php://input'))) === null) {
+		if (($json = json_decode(file_get_contents('php://input'), true)) === null) {
 			$json = array('c' => 'database', 'a' => 'index');
 		}
 		$cont = $this->initController((isset($json['c'])) ? $json['c'] : 'database');
