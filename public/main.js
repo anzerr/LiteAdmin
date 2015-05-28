@@ -26,4 +26,10 @@ var Jinx;
 		});
 	}]);
   
+  
+	// FUNC
+	base.query = function($http, q) {
+		return ($http({method: 'post', url: '/', data: {c: 'database', a: 'query', p: {query: q}}}));
+	}
+  
 })(Jinx || (Jinx = {}));

@@ -19,22 +19,28 @@ var Jinx;
 		}
 	};
 	
-	base.controller.directive('jinxMenu', ['$timeout', function($timeout) {
+	var _cache = [];
+	
+	base.controller.directive('jinxMenu', ['$timeout', '$http', function($timeout, $http) {
 		var link = function(scope, element, attrs) {
 			$timeout(function() {
 				collaps.init();
+			
+				base.query($http, 'SHOW DATABASES;').success(function(res) {
+					try {
+						var tmp = [];
+						
+						for (var i in res){
+							tmp.push({name:res[i].Database, display:false, loaded:false, table:[]});
+						}
+						scope.database = (_cache = tmp);
+					} catch (e) {
+						console.log('not json');
+					}
+				});
 			});
-			console.log("cat");
 			
-			scope.database = [
-				{ name: 'cat', display:false, table: ['table1', 'table2', 'table3', 'table4', 'table5'] },
-				{ name: 'dog', display:true, table: ['table1', 'table2', 'table3', 'table4', 'table5'] },
-				{ name: 'fine', display:true, table: ['table1', 'table2', 'table3', 'table4', 'table5'] },
-				{ name: 'jake', display:true, table: ['table1', 'table2', 'table3', 'table4', 'table5'] },
-				{ name: 'deus', display:true, table: ['table1', 'table2', 'table3', 'table4', 'table5'] },
-			]
-			
-			scope.name = "jake the dog";
+			scope.database = _cache;
 		}
 		
 		return {
