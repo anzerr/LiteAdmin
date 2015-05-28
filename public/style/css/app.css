@@ -4,6 +4,7 @@ html, body {
 	padding:0px;
 	width:100%;
 	height:100%;
+	color:#000;
 	
 	-webkit-touch-callout: none;
 	-webkit-user-select: none;
@@ -19,7 +20,7 @@ html, body {
 	left:0px;
 	width:200px;
 	height:100%;
-	background-color:red;
+	background-color:#333;
 	-webkit-transition: left 0.5s;
     transition: left 0.5s;
 }
@@ -28,7 +29,7 @@ html, body {
 	margin-left:200px;
 	height:100%;
 	overflow:hidden;
-	background-color:green;
+	background-color:#eee;
 	z-index: -1;
 	-webkit-transition: margin 0.5s;
     transition: margin 0.5s;
@@ -40,12 +41,23 @@ html, body {
 	right:-32px;
 	width:32px;
 	height:32px;
-	background-color:yellow;
+	padding:2px 2px 4px 4px;
+	background-color:#aaa;
+	cursor: pointer;
+}
+
+.jinxMenuTitle {
+	color: #eee;
+	text-align: center;
+}
+
+.list-group {
+	margin: 5px 0px;
 }
 
 .list-group-item {
-	cursor: pointer;
 	padding: 0px 5px;
+	cursor: pointer;
 }
 
 .list-group-item:first-child {
