@@ -29,15 +29,19 @@ html, body {
 	height:100%;
 	overflow:hidden;
 	background-color:green;
-<<<<<<< HEAD
-}
-
-.list-group-item {
-	padding: 0px 5px;
-=======
 	z-index: -1;
 	-webkit-transition: margin 0.5s;
     transition: margin 0.5s;
+}
+
+.list-group-item {
+	cursor: pointer;
+	padding: 0px 5px;
+}
+
+.list-group-item:first-child {
+	border-top-left-radius: 0px;
+	border-top-right-radius: 0px;
 }
 
 .jinxCollaps {
@@ -47,5 +51,4 @@ html, body {
 	width:32px;
 	height:32px;
 	background-color:yellow;
->>>>>>> 54a2eb6067ca8c42ee5edfae7c745cfae86be77b
 }

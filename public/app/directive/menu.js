@@ -28,10 +28,10 @@ var Jinx;
 			
 			scope.database = [
 				{ name: 'cat', display:false, table: ['table1', 'table2', 'table3', 'table4', 'table5'] },
-				{ name: 'dog', display:true, table: ['table1', 'table2', 'table3', 'table4', 'table5'] },
-				{ name: 'fine', display:true, table: ['table1', 'table2', 'table3', 'table4', 'table5'] },
-				{ name: 'jake', display:true, table: ['table1', 'table2', 'table3', 'table4', 'table5'] },
-				{ name: 'deus', display:true, table: ['table1', 'table2', 'table3', 'table4', 'table5'] },
+				{ name: 'dog', display:false, table: ['table1', 'table2', 'table3', 'table4', 'table5'] },
+				{ name: 'fine', display:false, table: ['table1', 'table2', 'table3', 'table4', 'table5'] },
+				{ name: 'jake', display:false, table: ['table1', 'table2', 'table3', 'table4', 'table5'] },
+				{ name: 'deus', display:false, table: ['table1', 'table2', 'table3', 'table4', 'table5'] },
 			]
 			
 			scope.name = "jake the dog";
