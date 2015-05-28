@@ -3,6 +3,7 @@
 namespace Jinx\Entity;
 
 use PDO;
+use Jinx\Model as Model;
 
 class MyPDO extends PDO {
 	private $_db;
@@ -22,7 +23,7 @@ class MyPDO extends PDO {
 			die();
 		}
 		
-		$this->users = new DB_Users($this);
+		$this->users = new Model\DB_Users($this);
 	}
 	
 	public function getDb()

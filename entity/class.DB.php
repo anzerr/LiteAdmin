@@ -9,8 +9,8 @@ class DB
 	
 	public function __construct($pdo, $table = "")
 	{
-		$this->_pdo = $pdo;
-		$this->_table = $table;
+		self::$_pdo = $pdo;
+		self::$_table = $table;
 	}
 	
 	public function query($sql)
