@@ -33,21 +33,21 @@ var Jinx;
 						for (var i in res){
 							tmp.push({name:res[i].Database, display:false, loaded:false, table:[]});
 						}
-						scope.database = (_cache = tmp);
+						scope.db.database = (_cache = tmp);
 					} catch (e) {
 						console.log('not json');
 					}
 				});
 			});
+			scope.db = {}
+			
+			scope.db.database = _cache;
 
-			scope.database = _cache;
-
-			scope.loadTables = function(k) {
-				var row = scope.database[k];
+			scope.db.loadTables = function(k) {
+				var row = scope.db.database[k];
 				
 				if (!row.loaded) {
 					base.query($http, 'SHOW TABLES from ' + row.name + ';').success(function(res) {
-						console.log(res);
 						var tmp = [];
 						
 						for (var i in res){
@@ -58,7 +58,7 @@ var Jinx;
 					});
 				}
 				
-				scope.database[k].display = !scope.database[k].display;
+				scope.db.database[k].display = !scope.db.database[k].display;
 			}
 		}
 		

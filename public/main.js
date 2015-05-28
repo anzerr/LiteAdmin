@@ -17,9 +17,9 @@ var Jinx;
 			templateUrl: partials + 'home.html',
 			controller: 'HomeCtrl'
 		}).
-		when('/table/:TName', {
-			templateUrl: partials + 'table-detail.html',
-			controller: 'DisplayCtrl'
+		when('/show/:database/:TName', {
+			templateUrl: partials + 'table-home.html',
+			controller: 'TableCtrl'
 		}).
 		otherwise({
 			redirectTo: '/home'

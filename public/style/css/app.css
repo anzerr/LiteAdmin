@@ -29,7 +29,7 @@ html, body {
 	margin-left:200px;
 	height:100%;
 	overflow:hidden;
-	background-color:#eee;
+	background-color:white;
 	z-index: -1;
 	-webkit-transition: margin 0.5s;
     transition: margin 0.5s;
