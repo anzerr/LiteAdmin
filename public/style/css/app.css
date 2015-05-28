@@ -32,3 +32,7 @@ html, body {
 	overflow:hidden;
 	background-color:green;
 }
+
+.list-group-item {
+	padding: 0px 5px;
+}
