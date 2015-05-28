@@ -34,6 +34,15 @@ html, body {
     transition: margin 0.5s;
 }
 
+.jinxCollaps {
+	position:absolute;
+	bottom:0px;
+	right:-32px;
+	width:32px;
+	height:32px;
+	background-color:yellow;
+}
+
 .list-group-item {
 	cursor: pointer;
 	padding: 0px 5px;
@@ -42,13 +51,4 @@ html, body {
 .list-group-item:first-child {
 	border-top-left-radius: 0px;
 	border-top-right-radius: 0px;
-}
-
-.jinxCollaps {
-	position:absolute;
-	bottom:0px;
-	right:-32px;
-	width:32px;
-	height:32px;
-	background-color:yellow;
 }
