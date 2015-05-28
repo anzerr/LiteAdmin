@@ -41,6 +41,25 @@ var Jinx;
 			});
 
 			scope.database = _cache;
+
+			scope.loadTables = function(k) {
+				var row = scope.database[k];
+				
+				if (!row.loaded) {
+					base.query($http, 'SHOW TABLES from ' + row.name + ';').success(function(res) {
+						console.log(res);
+						var tmp = [];
+						
+						for (var i in res){
+							tmp.push(res[i][Object.keys(res[i])[0]]);
+						}
+						row.table = tmp;
+						row.loaded = true;
+					});
+				}
+				
+				scope.database[k].display = !scope.database[k].display;
+			}
 		}
 		
 		return {
