@@ -44,9 +44,9 @@ class Core
 	
 	public function run() {
 		if (($json = json_decode(file_get_contents('php://input'))) === null) {
-			$json = array('c' => 'database', 'a' => 'query');
+			$json = array('c' => 'database', 'a' => 'index');
 		}
-		$cont = $this->initController((isset($json['c'])) ? $json['c'] : 'default');
+		$cont = $this->initController((isset($json['c'])) ? $json['c'] : 'database');
 		if ($cont !== null) {
 			$action = (isset($json['a']) && is_callable(array($cont, $json['a']))) ? $json['a'] : 'index';
 			$cont->$action((isset($json['p'])) ? $json['p'] : null);
