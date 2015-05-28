@@ -1,13 +1,7 @@
 <div class="jinxMenu">
+	<div class="list-group" ng-repeat="(key, value) in database">
+		<a class="list-group-item active" ng-click="value.display = !value.display">{{value.name}}</a>
+		<a class="list-group-item" ng-hide="!value.display" ng-repeat="(kin, vin) in value.table">{{vin}}</a>
 	<div>
-		<div ng-repeat="(key, value) in database">
-			<ul>
-				<div><b>{{value.name}}</b></div>
-				<li ng-hide="!value.display" class="friend" ng-repeat="(kin, vin) in value.table">
-					{{vin}}
-				</li>
-			</ul>
-		</div>
-	</div>
 	<div class="jinxCollaps"></div>
 </div>

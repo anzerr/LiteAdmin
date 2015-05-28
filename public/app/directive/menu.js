@@ -39,7 +39,7 @@ var Jinx;
 					}
 				});
 			});
-			
+
 			scope.database = _cache;
 		}
 		
