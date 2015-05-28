@@ -19,20 +19,33 @@ html, body {
 	left:0px;
 	width:200px;
 	height:100%;
-	overflow:hidden;
 	background-color:red;
+	-webkit-transition: left 0.5s;
+    transition: left 0.5s;
 }
 
 .jinxView {
-	position:absolute;
-	top:0px;
-	right:0px;
-	width:calc(100% - 200px);
+	margin-left:200px;
 	height:100%;
 	overflow:hidden;
 	background-color:green;
+<<<<<<< HEAD
 }
 
 .list-group-item {
 	padding: 0px 5px;
+=======
+	z-index: -1;
+	-webkit-transition: margin 0.5s;
+    transition: margin 0.5s;
+}
+
+.jinxCollaps {
+	position:absolute;
+	bottom:0px;
+	right:-32px;
+	width:32px;
+	height:32px;
+	background-color:yellow;
+>>>>>>> 54a2eb6067ca8c42ee5edfae7c745cfae86be77b
 }

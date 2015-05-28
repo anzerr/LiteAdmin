@@ -3,15 +3,17 @@
 	<head>
 		<meta charset="utf-8">
 		<title>My HTML File</title>
+		<script type="text/javascript" src="/public/lib/angular/angular.js"></script>
+		<script type="text/javascript" src="/public/lib/angular/angular-route.js"></script>
+		<script type="text/javascript" src="/public/lib/jquery-2.1.4.js"></script>
+	
 		<link rel="stylesheet" href="/public/style/css/bootstrap.css" />
 		<link rel="stylesheet" href="/public/style/css/font-awesome.css" />
 		<link rel="stylesheet" href="/public/style/css/app.css" />
 		<script type="text/javascript" src="/public/style/js/bootstrap.js"></script>
-		<script type="text/javascript" src="/public/lib/angular/angular.js"></script>
-		<script type="text/javascript" src="/public/lib/angular/angular-route.js"></script>
 	</head>
 	<body>
-		<div>
+		<div style="height:100%;">
 			<jinx-menu></jinx-menu>
 			<div class="jinxView" ng-view></div>
 		</div>
