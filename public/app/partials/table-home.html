@@ -3,30 +3,40 @@
 		<jinx-tab></jinx-tab>
 		
 		<div class="col-md-12">
-			<div class="col-md-12" style="margin: 40px 0px;">
-				<textarea class="col-md-12" ng-model="sql.current"></textarea>
-				<div class="col-md-12">
-					<button class="btn btn-default" type="submit" ng-click="sql.run()">Submit</button>
+			<div class="col-md-12 sql-textarea">
+				<div class="panel panel-default">
+					<div class="panel-heading">SQL Query</div>
+					<textarea class="col-md-12" rows="8" ng-model="sql.current"></textarea>
+					<div>
+						<button class="btn btn-primary pull-right" type="submit" ng-click="sql.run()">Submit</button>
+					</div>
 				</div>
 			</div>
 		</div>
 						
 		<div class="col-md-12">
-			<div class="table-responsive" style="height:100%;">
-				<table class="table table-condensed">
-					<tr>
-						<th ng-repeat="(key, value) in sql.result.name">{{value}}</th>
-						<th style="text-align:right;">action</th>
-					</tr>
-					<tr ng-repeat="(key, value) in sql.result.data">
-						<td ng-repeat="kin in value track by $index">{{kin}}</td>
-						<td style="text-align:right;">
-							<button class="btn btn-default" type="submit">Save</button>
-							<button class="btn btn-default" type="submit">Delete</button>
-							<button class="btn btn-default" type="submit">Reload</button>
-						</td>
-					</tr>
-				</table>
+			<div class="col-md-12 table-responsive" style="height:100%;">
+				<div class="panel panel-default">
+					<div class="panel-heading">Name of table</div>
+					<table class="table table-condensed">
+						<thead>
+							<tr>
+								<th ng-repeat="(key, value) in sql.result.name">{{value}}</th>
+								<th class="text-right"><i class="fa fa-cogs"></i> action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="(key, value) in sql.result.data">
+								<td ng-repeat="kin in value track by $index">{{kin}}</td>
+								<td class="text-right">
+									<button class="btn btn-success" type="submit">Save</button>
+									<button class="btn btn-danger" type="submit">Delete</button>
+									<button class="btn btn-info" type="submit">Reload</button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
 	</div>

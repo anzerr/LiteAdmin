@@ -1,5 +1,5 @@
-<div class="col-md-12" style="background-color:#eee;">
+<div class="col-md-12 nav-menu">
 	<ul class="nav nav-tabs nav-justified">
-		<li role="presentation" ng-repeat="(key, value) in tab.list" class="{{(value.url == tab.path) ? 'active' : ''}}"><a href="#">{{value.name}}</a></li>
+		<li role="presentation" ng-repeat="(key, value) in tab.list" class="{{(value.url == tab.path) ? 'active' : ''}}"><a href="#"><i class="{{value.icon}}"></i> {{value.name}}</a></li>
 	</ul>
 </div>

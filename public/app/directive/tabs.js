@@ -3,13 +3,13 @@ var Jinx;
 	"use strict";
 	
 	var tabs = [
-		{name:'Show', url:'/show/:database/:TName'},
-		{name:'Structure', url:'/structure/:database/:TName'},
-		{name:'Sql', url:'/sql/:database/:TName'},
-		{name:'Rechercher', url:'/rechercher/:database/:TName'},
-		{name:'Insert', url:'/insert/:database/:TName'},
-		{name:'Export', url:'/export/:database/:TName'},
-		{name:'Import', url:'/import/:database/:TName'},
+		{name:'Show', url:'/show/:database/:TName', icon:'fa fa-list'},
+		{name:'Structure', url:'/structure/:database/:TName', icon:'fa fa-link'},
+		{name:'Sql', url:'/sql/:database/:TName', icon:'fa fa-code'},
+		{name:'Rechercher', url:'/rechercher/:database/:TName', icon:'fa fa-search'},
+		{name:'Insert', url:'/insert/:database/:TName', icon:'fa fa-indent'},
+		{name:'Export', url:'/export/:database/:TName', icon:'fa fa-sign-out'},
+		{name:'Import', url:'/import/:database/:TName', icon:'fa fa-sign-in'},
 	];
 	
 	base.controller.directive('jinxTab', ['$route', function($route) {
