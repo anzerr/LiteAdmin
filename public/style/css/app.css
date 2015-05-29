@@ -60,6 +60,24 @@ html, body {
 	margin: 20px 0px;
 }
 
+.nav-menu {
+	background-color: #333;
+	color: #eee;
+}
+
+.nav-menu ul li a {
+	color: #eee;
+}
+
+.nav-menu ul li a:hover {
+	color: #555;
+	background-color: #fff;
+}
+
+.nav-tabs.nav-justified > li > a {
+	border-bottom: none;
+}
+
 .list-group {
 	margin: 6px 0px;
 }
@@ -78,4 +96,33 @@ html, body {
 .list-group-item:last-child {
 	border-bottom-left-radius: 0px;
 	border-bottom-right-radius: 0px;
+}
+
+.sql-textarea {
+	margin: 40px 0px;
+}
+
+.sql-textarea textarea {
+	border: solid 1px #eee;
+	border-radius: 2px;
+	resize: none;
+	padding-top: 15px;
+	padding-bottom: 15px; 
+}
+
+.sql-textarea button {
+	margin-top: 10px;
+}
+
+.panel-default > .panel-heading {
+	font-size: 20px;
+}
+
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+	vertical-align: middle;
+}
+
+.table td {
+	padding-left: 10px;
+	padding-right: 10px; 
 }

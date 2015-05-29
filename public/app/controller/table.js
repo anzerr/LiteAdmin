@@ -22,6 +22,7 @@ var Jinx;
 			display: 25,
 			page: 0,
 			max: 0,
+			tableName: $routeParams.TName,
 			setDisplay: function(n) {
 				this.display = n;
 				this.max = (this.result.data.length / this.display);
@@ -46,11 +47,12 @@ var Jinx;
 				return new Array(n);
 			},
 			getSize: function() {
-				var size = 0, pow = 1, tmp = 0;
+				var size = 0, pow = 1, tmp = 0, num = 1;
 				while (pow < this.max) {
 					pow = pow * 10;		
-					size += 26 + (8 * ((pow - 1) - tmp));
+					size += (26 + (8 * num)) * (pow - tmp);
 					tmp = pow - 1;
+					num += 1;
 				}
 				return (size);
 			},
@@ -59,7 +61,6 @@ var Jinx;
 				while (pow < cur) {
 					pow = pow * 10;
 					size += (26 + (8 * num)) * (Math.min(pow - 1, cur) - tmp);
-					console.log("p: " + Math.min(pow - 1, cur) + " - " + tmp);
 					tmp = pow - 1;
 					num += 1;
 				}

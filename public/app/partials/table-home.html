@@ -3,40 +3,45 @@
 		<jinx-tab></jinx-tab>
 		
 		<div class="col-md-12">
-			<div class="col-md-12" style="margin: 40px 0px;">
-				<textarea class="col-md-12" ng-model="sql.current"></textarea>
-				<div class="col-md-12">
-					<button class="btn btn-default" type="submit" ng-click="sql.run()">Submit</button>
+			<div class="col-md-12 sql-textarea">
+				<div class="panel panel-default">
+					<div class="panel-heading">SQL Query</div>
+					<textarea class="col-md-12" rows="8" ng-model="sql.current"></textarea>
+					<div>
+						<button class="btn btn-primary pull-right" type="submit" ng-click="sql.run()">Submit</button>
+					</div>
 				</div>
 			</div>
 		</div>
-
+		
 		<div class="col-md-12">
-			<div class="table-responsive" style="height:100%;">
-				<table class="table table-condensed">
-					<tr>
-						<th ng-repeat="(key, value) in sql.result.name">{{value}}</th>
-						<th style="text-align:right;">action</th>
-					</tr>
-					<tr ng-repeat="i in sql.getNumber() track by $index">
-						<td>{{i}}</td>
-						<td ng-repeat="kin in sql.result.data[i] track by $index">
-							<div ng-if="sql.result.data[i].edit == true">
-								<input type="text" ng-model="sql.result.data[i][$index]" required style="width:64px;">
-							</div>
-							<div ng-if="sql.result.data[i].edit != true">
-								{{kin}}
-							</div>
-						</td>
-						<td style="text-align:right;">
-							<button class="btn btn-default" ng-click="sql.editTable(key)" type="submit">{{(value.edit == true)? 'Edit' : 'Save'}}</button>
-							<button class="btn btn-default" type="submit">Delete</button>
-							<button class="btn btn-default" type="submit">Reload</button>
-						</td>
-					</tr>
-				</table>
+			<div class="col-md-12 table-responsive" style="height:100%;">
+				<div class="panel panel-default">
+					<div class="panel-heading">{{sql.tableName}}</div>
+					<table class="table table-condensed">
+						<tr>
+							<th ng-repeat="(key, value) in sql.result.name">{{value}}</th>
+							<th class="text-right"><i class="fa fa-cogs"></i> action</th>
+						</tr>
+						<tr ng-repeat="i in sql.getNumber() track by $index">
+							<td ng-repeat="kin in sql.result.data[i] track by $index">
+								<div ng-if="sql.result.data[i].edit == true">
+									<input type="text" ng-model="sql.result.data[i][$index]" required style="width:64px;">
+								</div>
+								<div ng-if="sql.result.data[i].edit != true">
+									{{kin}}
+								</div>
+							</td>
+							<td class="text-right">
+								<button class="btn btn-success" ng-click="sql.editTable(i)" type="submit"><i class="fa fa-{{(sql.result.data[i].edit != true)? 'pencil' : 'floppy-o'}}"></i></button>
+								<button class="btn btn-danger" type="submit"><i class="fa fa-times"></i></button>
+								<button class="btn btn-primary" type="submit"><i class="fa fa-refresh"></i></button>
+							</td>
+						</tr>
+					</table>
+				</div>
 			</div>
-						
+							
 			<div class="col-md-8 col-md-offset-2" style="text-align:center;">
 				<nav>
 					<ul class="pagination">
