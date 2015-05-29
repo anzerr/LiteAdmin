@@ -1,7 +1,7 @@
 <div class="col-md-12 nav-menu">
 	<ul class="nav nav-tabs nav-justified">
 		<li role="presentation" ng-repeat="(key, value) in tab.list" class="{{(value.url == tab.path) ? 'active' : ''}}">
-			<a href="#"><i class="{{value.icon}}"></i> {{value.name}}</a>
+			<a href="#{{tab.format(value.url)}}"><i class="{{value.icon}}"></i> {{value.name}}</a>
 		</li>
 	</ul>
 </div>

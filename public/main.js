@@ -20,14 +20,49 @@ var Jinx;
 			controller: 'HomeCtrl'
 		}).
 		when('/show/:database/:TName', {
-			templateUrl: partials + 'table-home.html',
+			templateUrl: partials + 'table/show.html',
+			controller: 'TableCtrl'
+		}).
+		when('/structure/:database/:TName', {
+			templateUrl: partials + 'table/structure.html',
+			controller: 'TableCtrl'
+		}).
+		when('/sql/:database/:TName', {
+			templateUrl: partials + 'table/sql.html',
+			controller: 'TableCtrl'
+		}).
+		when('/rechercher/:database/:TName', {
+			templateUrl: partials + 'table/rechercher.html',
+			controller: 'TableCtrl'
+		}).
+		when('/insert/:database/:TName', {
+			templateUrl: partials + 'table/insert.html',
+			controller: 'TableCtrl'
+		}).
+		when('/export/:database/:TName', {
+			templateUrl: partials + 'table/export.html',
+			controller: 'TableCtrl'
+		}).
+		when('/import/:database/:TName', {
+			templateUrl: partials + 'table/import.html',
 			controller: 'TableCtrl'
 		}).
 		otherwise({
 			redirectTo: '/home'
 		});
 	}]);
-  
+
+	base._query = {
+		_database:'',
+		set:function(a) {
+			this._database = a;
+		},
+		list:[],
+		add:function(a, b) {
+			this.list.push({q:a, d:(isset(b)) ? b : ''});
+			return (a);
+		},
+	}
   
 	// FUNC
 	base.query = function($http, q, d) {

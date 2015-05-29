@@ -24,7 +24,27 @@ Class Database extends Entity\BaseController {
 				}
 				$data[] = $d;
 			}
-			echo json_encode(array("name" => $names, "data" => $data));
+			
+			$a = array('from', 'update');
+			$f = null;
+			foreach ($a as $v) {
+				preg_match("/" . $v . "\s[^\s]+[\s;]/i", $arg['query'], $m);
+				if (count($m) >= 1) {
+					$f = explode(" ", $m[0])[1];
+					if (substr($f, -1) == ';') {
+						$f = substr($f, 0, -1);
+					}
+					break;
+				}
+			}
+			
+			echo json_encode(array(
+				"name" => $names, 
+				"data" => $data, 
+				"info" => array(
+					"table" => ($f != null) ? $f : '',
+				),
+			));
 		} else {
 			echo 'null';
 		}

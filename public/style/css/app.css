@@ -44,8 +44,12 @@ html, body {
 	width:32px;
 	height:32px;
 	padding:2px 2px 4px 4px;
-	background-color:#aaa;
+	background-color: #333;
+	color: white;
 	cursor: pointer;
+	-webkit-border-top-right-radius: 16px;
+	-moz-border-radius-topright: 16px;
+	border-top-right-radius: 16px;
 }
 
 .jinxMenuBody {
@@ -103,8 +107,10 @@ html, body {
 }
 
 .sql-textarea textarea {
-	border: solid 1px #eee;
-	border-radius: 2px;
+	/*border: solid 1px #eee;
+	border-radius: 2px;*/
+	border-color: white;
+	width:100%;
 	resize: none;
 	padding-top: 15px;
 	padding-bottom: 15px; 
@@ -125,4 +131,55 @@ html, body {
 .table td {
 	padding-left: 10px;
 	padding-right: 10px; 
+}
+
+.transitionAll {
+	-webkit-transition: all 0.5s;
+	transition: all  0.5s;
+}
+
+.loading {
+    -webkit-animation: spin 4s infinite linear;
+	font-size: 100%;
+}
+
+@-webkit-keyframes spin {
+	0%  {-webkit-transform: rotate(0deg);}
+	100% {-webkit-transform: rotate(360deg);}	
+}
+
+
+.animate-show {
+  line-height: 20px;
+  opacity: 1;
+  padding: 10px;
+  border: 1px solid black;
+  background: white;
+}
+
+.animate-show.ng-hide-add.ng-hide-add-active,
+.animate-show.ng-hide-remove.ng-hide-remove-active {
+  -webkit-transition: all linear 0.5s;
+  transition: all linear 0.5s;
+}
+
+.animate-show.ng-hide {
+  line-height: 0;
+  opacity: 0;
+  padding: 0 10px;
+}
+
+.check-element {
+  padding: 10px;
+  border: 1px solid black;
+  background: white;
+}
+
+.disableA {
+	color:#eee;
+}
+
+.disableA:hover {
+	color:#eee;
+	text-decoration: none;
 }

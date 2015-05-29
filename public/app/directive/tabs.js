@@ -17,7 +17,15 @@ var Jinx;
 			scope.tab = {
 				list: tabs,
 				path: $route.current.$$route.originalPath,
+				format: function(url) {
+					var p = $route.current.params;
+					for (var i in p) {
+						url = url.replace(':' + i, p[i]);
+					}
+					return (url);
+				}
 			};
+			console.log($route);
 		}
 		
 		return {

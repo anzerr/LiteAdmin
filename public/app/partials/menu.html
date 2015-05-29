@@ -1,6 +1,6 @@
 <div class="jinxMenu">
 	<div class="jinxMenuBody">
-		<h3 class="jinxMenuTitle">Databases</h3>
+		<h3 class="jinxMenuTitle"><a class="disableA" href="#/">Lite Admin</a></h3>
 		<div class="list-group" ng-repeat="(key, value) in db.database">
 			<a class="list-group-item active" ng-click="db.loadTables(key)"><i ng-if="!value.display" class="fa fa-plus"></i> <i class="fa fa-database"></i> {{value.name}}</a>
 			<a ng-href="#/show/{{value.name}}/{{vin}}" class="list-group-item" ng-hide="!value.display" ng-repeat="(kin, vin) in value.table">{{vin}}</a>

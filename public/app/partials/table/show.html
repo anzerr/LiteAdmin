@@ -3,27 +3,29 @@
 		<jinx-tab></jinx-tab>
 		
 		<div class="col-md-12">
-			<div class="col-md-12 sql-textarea">
+			<div class="sql-textarea">
 				<div class="panel panel-default">
-					<div class="panel-heading">SQL Query</div>
-					<textarea class="col-md-12" rows="8" ng-model="sql.current"></textarea>
-					<div>
-						<button class="btn btn-primary pull-right" type="submit" ng-click="sql.run()">Submit</button>
+					<div class="panel-heading">SQL Query <i ng-show="sql.ajax" class="loading fa fa-cog fa-2x"></i></div>
+					<textarea rows="8" ng-model="sql.current"></textarea>
+					<div class="text-right" style="margin:5px;">
+						<button class="btn btn-{{(!sql.ajax) ? 'primary' : 'default'}} transitionAll" type="submit" ng-click="sql.run()">Submit</button>
 					</div>
 				</div>
 			</div>
 		</div>
 		
+		<div class="col-md-12" style="margin:15px 0px;height:1px;"></div>
+					
 		<div class="col-md-12">
-			<div class="col-md-12 table-responsive" style="height:100%;">
-				<div class="panel panel-default">
-					<div class="panel-heading">{{sql.tableName}}</div>
+			<div class="panel panel-default">
+				<div class="panel-heading">{{sql.tableName}}</div>
+				<div class="col-md-12 table-responsive" style="float: none;">
 					<table class="table table-condensed">
 						<tr>
 							<th ng-repeat="(key, value) in sql.result.name">{{value}}</th>
 							<th class="text-right"><i class="fa fa-cogs"></i> action</th>
 						</tr>
-						<tr ng-repeat="i in sql.getNumber() track by $index">
+						<tr ng-repeat="i in sql.getNumber() track by $index" ng-if="sql.result.data[i] != null">
 							<td ng-repeat="kin in sql.result.data[i] track by $index">
 								<div ng-if="sql.result.data[i].edit == true">
 									<input type="text" ng-model="sql.result.data[i][$index]" required style="width:64px;">
@@ -32,29 +34,30 @@
 									{{kin}}
 								</div>
 							</td>
-							<td class="text-right">
+							<td class="text-right" style="min-width:145px;" ng-show="sql.result.info.table != ''">
 								<button class="btn btn-success" ng-click="sql.editTable(i)" type="submit"><i class="fa fa-{{(sql.result.data[i].edit != true)? 'pencil' : 'floppy-o'}}"></i></button>
-								<button class="btn btn-danger" type="submit"><i class="fa fa-times"></i></button>
-								<button class="btn btn-primary" type="submit"><i class="fa fa-refresh"></i></button>
+								<button class="btn btn-danger" ng-click="sql.removeRow(i)" type="submit"><i class="fa fa-times"></i></button>
+								<button class="btn btn-primary" ng-click="sql.reloadRow(i)" type="submit"><i class="fa fa-refresh"></i></button>
 							</td>
+							<td ng-show="sql.result.info.table == ''" style="color:gray;">unknown table</td>
 						</tr>
 					</table>
 				</div>
 			</div>
-							
-			<div class="col-md-8 col-md-offset-2" style="text-align:center;">
+					
+			<div class="col-md-8 col-md-offset-2" style="text-align:center; position:relative;">
 				<nav>
-					<ul class="pagination">
+					<ul class="pagination" style="position:absolute;top:0px;left:0px;z-index:99;">
 						<li ng-if="sql.page >= 1">
 							<span aria-hidden="true" ng-click="sql.page = sql.page - 1">&laquo;</span>
 						</li>
 					</ul>
-					<div style="display:inline-block;width:350px;overflow:hidden;">
+					<div id="jinxPage" style="display:inline-block;width:100%;overflow:hidden;z-index:1;">
 						<ul class="pagination" style="width:{{sql.getSize()}}px;margin-left:-{{sql.getPosX()}}px;-webkit-transition: margin 0.5s;transition: margin 0.5s;">
 							<li ng-repeat="a in sql.range(sql.max) track by $index" class="{{(sql.page == $index) ? 'active' : ''}}" ng-click="sql.page = $index"><span>{{$index + 1}}</span></li>
 						</ul>
 					</div>
-					<ul class="pagination">
+					<ul class="pagination" style="position:absolute;top:0px;right:0px;z-index:99;">
 						<li ng-if="sql.page < sql.max - 1">
 							<span aria-hidden="true" ng-click="sql.page = sql.page + 1">&raquo;</span>
 						</li>
