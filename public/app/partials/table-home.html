@@ -43,7 +43,13 @@
 						<li ng-if="sql.page >= 1">
 							<span aria-hidden="true" ng-click="sql.page = sql.page - 1">&laquo;</span>
 						</li>
+					</ul>
+					<div style="display:inline-block;width:350px;overflow:hidden;">
+						<ul class="pagination" style="width:{{sql.getSize()}}px;margin-left:-{{sql.getPosX()}}px;-webkit-transition: margin 0.5s;transition: margin 0.5s;">
 							<li ng-repeat="a in sql.range(sql.max) track by $index" class="{{(sql.page == $index) ? 'active' : ''}}" ng-click="sql.page = $index"><span>{{$index + 1}}</span></li>
+						</ul>
+					</div>
+					<ul class="pagination">
 						<li ng-if="sql.page < sql.max - 1">
 							<span aria-hidden="true" ng-click="sql.page = sql.page + 1">&raquo;</span>
 						</li>
