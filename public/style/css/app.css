@@ -20,6 +20,7 @@ html, body {
 	left:0px;
 	width:200px;
 	height:100%;
+	max-height:100%;
 	background-color:#333;
 	-webkit-transition: left 0.5s;
     transition: left 0.5s;
@@ -46,21 +47,34 @@ html, body {
 	cursor: pointer;
 }
 
+.jinxMenuBody {
+	min-height: 100%;
+	max-height: 100%;
+	overflow-y: auto;
+}
+
 .jinxMenuTitle {
 	color: #eee;
 	text-align: center;
+	margin: 20px 0px;
 }
 
 .list-group {
-	margin: 5px 0px;
+	margin: 6px 0px;
 }
 
 .list-group-item {
 	padding: 0px 5px;
+	word-break: break-word;
 	cursor: pointer;
 }
 
 .list-group-item:first-child {
 	border-top-left-radius: 0px;
 	border-top-right-radius: 0px;
+}
+
+.list-group-item:last-child {
+	border-bottom-left-radius: 0px;
+	border-bottom-right-radius: 0px;
 }

@@ -1,3 +1,5 @@
+isset = function(a) { return ((typeof(a) !== 'undefined' && a !== null) ? true : false); }
+
 var Jinx;
 (function(base) {
 	"use strict";
@@ -28,8 +30,8 @@ var Jinx;
   
   
 	// FUNC
-	base.query = function($http, q) {
-		return ($http({method: 'post', url: '/', data: {c: 'database', a: 'query', p: {query: q}}}));
+	base.query = function($http, q, d) {
+		return ($http({method: 'post', url: '/', data: {c: 'database', a: 'query', p: {query: q, database: (isset(d)) ? d : ''}}}));
 	}
   
 })(Jinx || (Jinx = {}));

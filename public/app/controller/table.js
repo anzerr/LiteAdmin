@@ -6,8 +6,13 @@ var Jinx;
 		$scope.sql = {
 			current: 'SELECT * FROM ' + $routeParams.TName + ';',
 			run: function() {
-				base.query($http, this.current).success(function(res) {
+				base.query($http, this.current, $routeParams.database).success(function(res) {
 					console.log(res);
+					try {
+						$scope.sql.result = JSON.stringify(res);
+					} catch (e) {
+						console.log(e);
+					}
 				});
 			},
 			result: [],

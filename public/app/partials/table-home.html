@@ -1,12 +1,29 @@
 <div style="heigth:100%;">
 	<jinx-tab></jinx-tab>
 	
-	<div class="col-md-12" style="margin-top:30px;">
-		<div class="col-md-10 col-md-offset-1">
-			<textarea class="col-md-12" ng-model="sql.current"></textarea>
-			<div class="col-md-12">
-				<button class="btn btn-default" type="submit" ng-click="sql.run()">Submit</button>
+	<div class="col-md-12">
+		<div class="col-md-12">
+			<div class="col-md-12" style="margin: 40px 0px;">
+				<textarea class="col-md-12" ng-model="sql.current"></textarea>
+				<div class="col-md-12">
+					<button class="btn btn-default" type="submit" ng-click="sql.run()">Submit</button>
+				</div>
 			</div>
+			
+			<table class="table table-condensed">
+				<tr>
+					<th>Firstname</th>
+					<th>action</th>
+				</tr>
+				<tr>
+					<td>Eve</td>
+					<td>
+						<button class="btn btn-default" type="submit">Save</button>
+						<button class="btn btn-default" type="submit">Delete</button>
+						<button class="btn btn-default" type="submit">Reload</button>
+					</td>
+				</tr>
+			</table>
 		</div>
 	</div>
 </div>
