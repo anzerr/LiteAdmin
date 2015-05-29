@@ -12,7 +12,19 @@ Class Database extends Entity\BaseController {
 			$query = $pdo->prepare($arg['query']);
 			$query->execute();
 			$result = $query->fetchAll(Entity\MyPDO::FETCH_ASSOC);
-			echo json_encode($result);
+			$names = array();
+			$data = array();
+			foreach ($result as $key => $value) {
+				$d = array();
+				foreach ($value as $k => $v) {
+					if ($key == 0 && !in_array($k, $names)) {
+						$names[] = $k;
+					}
+					$d[] = $v;
+				}
+				$data[] = $d;
+			}
+			echo json_encode(array("names" => $names, "data" => $data));
 		} else {
 			echo 'null';
 		}
