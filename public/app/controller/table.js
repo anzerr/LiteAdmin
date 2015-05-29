@@ -9,7 +9,7 @@ var Jinx;
 				base.query($http, this.current, $routeParams.database).success(function(res) {
 					console.log(res);
 					try {
-						$scope.sql.result = JSON.stringify(res);
+						$scope.sql.result = res
 					} catch (e) {
 						console.log(e);
 					}

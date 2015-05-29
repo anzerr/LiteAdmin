@@ -24,7 +24,7 @@ Class Database extends Entity\BaseController {
 				}
 				$data[] = $d;
 			}
-			echo json_encode(array("names" => $names, "data" => $data));
+			echo json_encode(array("name" => $names, "data" => $data));
 		} else {
 			echo 'null';
 		}

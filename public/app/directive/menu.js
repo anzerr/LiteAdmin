@@ -27,15 +27,12 @@ var Jinx;
 				collaps.init();
 			
 				base.query($http, 'SHOW DATABASES;').success(function(res) {
-					try {
+					if (res !== 'null') {
 						var tmp = [];
-						
-						for (var i in res){
-							tmp.push({name:res[i].Database, display:false, loaded:false, table:[]});
+						for (var i in res.data) {
+							tmp.push({name:res.data[i][0], display:false, loaded:false, table:[]});
 						}
 						scope.db.database = (_cache = tmp);
-					} catch (e) {
-						console.log('not json');
 					}
 				});
 			});
@@ -48,13 +45,14 @@ var Jinx;
 				
 				if (!row.loaded) {
 					base.query($http, 'SHOW TABLES from ' + row.name + ';').success(function(res) {
-						var tmp = [];
-						
-						for (var i in res){
-							tmp.push(res[i][Object.keys(res[i])[0]]);
+						if (res !== 'null') {
+							var tmp = [];
+							for (var i in res.data) {
+								tmp.push(res.data[i][0]);
+							}
+							row.table = tmp;
+							row.loaded = true;
 						}
-						row.table = tmp;
-						row.loaded = true;
 					});
 				}
 				

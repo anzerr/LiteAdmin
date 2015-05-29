@@ -37,6 +37,7 @@ html, body {
 }
 
 .jinxCollaps {
+	z-index: 100;
 	position:absolute;
 	bottom:0px;
 	right:-32px;
