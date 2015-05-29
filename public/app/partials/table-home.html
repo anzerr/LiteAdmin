@@ -10,7 +10,7 @@
 				</div>
 			</div>
 		</div>
-						
+
 		<div class="col-md-12">
 			<div class="table-responsive" style="height:100%;">
 				<table class="table table-condensed">
@@ -18,15 +18,37 @@
 						<th ng-repeat="(key, value) in sql.result.name">{{value}}</th>
 						<th style="text-align:right;">action</th>
 					</tr>
-					<tr ng-repeat="(key, value) in sql.result.data">
-						<td ng-repeat="kin in value track by $index">{{kin}}</td>
+					<tr ng-repeat="i in sql.getNumber() track by $index">
+						<td>{{i}}</td>
+						<td ng-repeat="kin in sql.result.data[i] track by $index">
+							<div ng-if="sql.result.data[i].edit == true">
+								<input type="text" ng-model="sql.result.data[i][$index]" required style="width:64px;">
+							</div>
+							<div ng-if="sql.result.data[i].edit != true">
+								{{kin}}
+							</div>
+						</td>
 						<td style="text-align:right;">
-							<button class="btn btn-default" type="submit">Save</button>
+							<button class="btn btn-default" ng-click="sql.editTable(key)" type="submit">{{(value.edit == true)? 'Edit' : 'Save'}}</button>
 							<button class="btn btn-default" type="submit">Delete</button>
 							<button class="btn btn-default" type="submit">Reload</button>
 						</td>
 					</tr>
 				</table>
+			</div>
+						
+			<div class="col-md-8 col-md-offset-2" style="text-align:center;">
+				<nav>
+					<ul class="pagination">
+						<li ng-if="sql.page >= 1">
+							<span aria-hidden="true" ng-click="sql.page = sql.page - 1">&laquo;</span>
+						</li>
+							<li ng-repeat="a in sql.range(sql.max) track by $index" class="{{(sql.page == $index) ? 'active' : ''}}" ng-click="sql.page = $index"><span>{{$index + 1}}</span></li>
+						<li ng-if="sql.page < sql.max - 1">
+							<span aria-hidden="true" ng-click="sql.page = sql.page + 1">&raquo;</span>
+						</li>
+					</ul>
+				</nav>
 			</div>
 		</div>
 	</div>
