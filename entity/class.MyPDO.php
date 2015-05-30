@@ -16,14 +16,17 @@ class MyPDO extends PDO {
 		$this->setLogin($login);
 		$this->setPassword($password);
 		
+		$loaded = false;
 		try {
-			parent::__construct($this->getDb(), $this->getLogin(), $this->getPassword()/*, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES UTF8")*/);
-		} catch (Exception $e) {
-			var_dump($e);
-			die();
+			@parent::__construct($this->getDb(), $this->getLogin(), $this->getPassword()/*, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES UTF8")*/);
+			$loaded = true;
+		} catch (\Exception $e) {
+			throw new \Exception("Can't connect to sql server with '" . $db . "' .");
 		}
 		
-		$this->users = new Model\DB_Users($this);
+		if ($loaded) {
+			$this->users = new Model\DB_Users($this);
+		}
 	}
 	
 	public function getDb()

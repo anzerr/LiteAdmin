@@ -188,9 +188,37 @@ html, body {
 
 .disableA {
 	color:#eee;
+	text-decoration: none;
 }
 
 .disableA:hover {
 	color:#eee;
 	text-decoration: none;
+}
+
+.disableA:not(:hover) {
+	color:#eee;
+	text-decoration: none;
+}
+
+.jinxNoGlow {
+    border: none;
+    overflow: auto;
+    outline: none;
+
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+}
+
+.jinxloadPage {
+	-webkit-transition: all linear 0.5s;
+	transition: all linear 0.5s;
+	height:100%;
+	opacity:0;
+}
+
+
+.Clickable {
+	cursor: pointer;
 }

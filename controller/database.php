@@ -8,27 +8,37 @@ Class Database extends Entity\BaseController {
 	
 	public function query($arg) {
 		if (isset($arg['query']) && !empty($arg['query'])) {
-			$pdo = new Entity\MyPDO('mysql:host=localhost;dbname=' . ((isset($arg['database'])) ? $arg['database'] : ''), 'root', '');
-			$query = $pdo->prepare($arg['query']);
-			$query->execute();
-			$result = $query->fetchAll(Entity\MyPDO::FETCH_ASSOC);
-			$names = array();
-			$data = array();
-			foreach ($result as $key => $value) {
-				$d = array();
-				foreach ($value as $k => $v) {
-					if ($key == 0 && !in_array($k, $names)) {
-						$names[] = $k;
-					}
-					$d[] = $v;
-				}
-				$data[] = $d;
+			$error = array();
+			try {
+				$pdo = new Entity\MyPDO($arg['connect']['sql'] . ';dbname=' . ((isset($arg['database'])) ? $arg['database'] : ''), $arg['connect']['user'], $arg['connect']['pwd']);
+				$pdo->setAttribute(Entity\MyPDO::ATTR_ERRMODE, Entity\MyPDO::ERRMODE_EXCEPTION);
+				$pdo->setAttribute(Entity\MyPDO::ATTR_EMULATE_PREPARES, false);
+				$query = $pdo->prepare($arg['query']);
+				$query->execute();
+				$result = $query->fetchAll(Entity\MyPDO::FETCH_ASSOC);
+			} catch(\Exception $e) {
+				$error[] = $e->getMessage();
 			}
 			
-			$a = array('from', 'update');
+			$names = array();
+			$data = array();
+			if (count($error) == 0) {
+				foreach ($result as $key => $value) {
+					$d = array();
+					foreach ($value as $k => $v) {
+						if ($key == 0 && !in_array($k, $names)) {
+							$names[] = $k;
+						}
+						$d[] = $v;
+					}
+					$data[] = $d;
+				}
+			}
+			
+			$a = array('from', 'update', 'table');
 			$f = null;
 			foreach ($a as $v) {
-				preg_match("/" . $v . "\s[^\s]+[\s;]/i", $arg['query'], $m);
+				preg_match("/" . $v . "\s[^\s]+[\s;]?/i", $arg['query'], $m);
 				if (count($m) >= 1) {
 					$f = explode(" ", $m[0])[1];
 					if (substr($f, -1) == ';') {
@@ -44,6 +54,7 @@ Class Database extends Entity\BaseController {
 				"info" => array(
 					"table" => ($f != null) ? $f : '',
 				),
+				"error" => $error,
 			));
 		} else {
 			echo 'null';

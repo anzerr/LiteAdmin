@@ -1,6 +1,46 @@
 <div style="height:100%; overflow: auto;">
 	<div class="row" style="margin:0px;">
 		
-		<h1>Welcome to LiteAdmin</h1>
+		<div class="jinxloadPage">		
+			<div style="margin-top:20px;" class="col-md-12">
+				<div ng-show="config.tested">
+					<div class="alert alert-danger" role="alert" ng-repeat="(key, value) in config.error">
+						<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+						<span class="sr-only">Error:</span> 
+						{{value}}
+					</div>
+					<div class="alert alert-success" role="alert" ng-if="(config.error.length == 0)">
+						<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+						<span class="sr-only">Success:</span> 
+						Successfully connected to the sql server.
+					</div>
+				</div>
+			
+				<div class="panel panel-default">
+					<div class="panel-heading">LiteAdmin Config<i ng-show="sql.ajax" class="loading fa fa-cog fa-2x"></i></div>
+					
+					<div class="col-md-12 table-responsive" style="float: none;">
+						<table class="table table-condensed">
+							<tr>
+								<td>User:</td>
+								<td><input type="text" ng-model="config.s.user"></td>
+								<td>Password:</td>
+								<td><input type="text" ng-model="config.s.password"></td>
+							</tr>
+							<tr>
+								<td>Ip:</td>
+								<td><input type="text" ng-model="config.s.host"></td>
+								<td>Port:</td>
+								<td><input type="text" ng-model="config.s.port"></td>
+							</tr>
+						</table>						
+						
+						<div class="text-right" style="margin-bottom:10px;">
+							<button class="btn btn-success" type="submit" ng-click="config.Save()">Save</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	<div>
 <div>

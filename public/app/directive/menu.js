@@ -23,41 +23,44 @@ var Jinx;
 	
 	base.controller.directive('jinxMenu', ['$timeout', '$http', function($timeout, $http) {
 		var link = function(scope, element, attrs) {
-			$timeout(function() {
-				collaps.init();
-			
-				base.query($http, 'SHOW DATABASES;').success(function(res) {
-					if (res !== 'null') {
-						var tmp = [];
-						for (var i in res.data) {
-							tmp.push({name:res.data[i][0], display:false, loaded:false, table:[]});
-						}
-						scope.db.database = (_cache = tmp);
-					}
-				});
-			});
-			scope.db = {}
-			
-			scope.db.database = _cache;
-
-			scope.db.loadTables = function(k) {
-				var row = scope.db.database[k];
-				
-				if (!row.loaded) {
-					base.query($http, 'SHOW TABLES from ' + row.name + ';').success(function(res) {
+			scope.db = {
+				database: _cache,
+				Reload:function() {
+					var self = this;
+					base.query($http, 'SHOW DATABASES;').success(function(res) {
 						if (res !== 'null') {
 							var tmp = [];
 							for (var i in res.data) {
-								tmp.push(res.data[i][0]);
+								tmp.push({name:res.data[i][0], display:false, loaded:false, table:[]});
 							}
-							row.table = tmp;
-							row.loaded = true;
+							self.database = (_cache = tmp);
 						}
 					});
+				},
+				loadTables: function(k) {
+					var row = scope.db.database[k];
+					
+					if (!row.loaded) {
+						base.query($http, 'SHOW TABLES from ' + row.name + ';').success(function(res) {
+							if (res !== 'null') {
+								var tmp = [];
+								for (var i in res.data) {
+									tmp.push(res.data[i][0]);
+								}
+								row.table = tmp;
+								row.loaded = true;
+							}
+						});
+					}
+					
+					scope.db.database[k].display = !scope.db.database[k].display;
 				}
-				
-				scope.db.database[k].display = !scope.db.database[k].display;
 			}
+			
+			$timeout(function() {
+				collaps.init();
+				scope.db.Reload();
+			});
 		}
 		
 		return {

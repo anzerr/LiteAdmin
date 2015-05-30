@@ -2,6 +2,63 @@
 	<div class="row" style="margin:0px;">
 		<jinx-tab></jinx-tab>
 		
-		<div>under work</div>
-	<div>
-<div>
+		<div class="jinxloadPage">		
+			<div style="margin-top:20px;" class="col-md-12" ng-show="(sql.result.data.length > 0)">
+				<div class="alert alert-danger" role="alert" ng-repeat="(key, value) in sql.result.error">
+					<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+					<span class="sr-only">Error:</span> 
+					{{value}}
+				</div>
+			
+				<div class="panel panel-default">
+					<div class="panel-heading">{{sql.tableName}} <i ng-show="sql.ajax" class="loading fa fa-cog fa-2x"></i></div>
+					<div class="col-md-12 table-responsive" style="float: none;">
+						<table class="table table-condensed">
+							<tr>
+								<th ng-repeat="(key, value) in sql.result.name">{{value}}</th>
+								<th class="text-right"><i class="fa fa-cogs"></i> action</th>
+							</tr>
+							<tr ng-repeat="(key, value) in sql.result.data track by $index" ng-if="value != null">
+								<td ng-repeat="(kin, vin) in value track by $index">
+									<div ng-if="sql.result.data[key].edit == true">
+										<input type="text" ng-model="sql.result.data[key][kin]" required style="width:100px;">
+									</div>
+									<div ng-if="sql.result.data[key].edit != true">
+										{{vin}}
+									</div>
+								</td>
+								<td class="text-right" style="min-width:145px;" ng-show="sql.result.info.table != ''">
+									<button class="btn btn-success" ng-click="sql.editTable(key)" type="submit"><i class="fa fa-{{(sql.result.data[key].edit != true)? 'pencil' : 'floppy-o'}}"></i></button>
+									<button class="btn btn-danger" ng-click="sql.removeRow(key)" type="submit"><i class="fa fa-times"></i></button>
+								</td>
+								<td ng-show="sql.result.info.table == ''" style="color:gray;">unknown table</td>
+							</tr>
+							
+							<tr>
+								<td ng-repeat="i in sql.range(sql.result.name.length) track by $index">
+									<input type="text" ng-model="sql.add[$index]" required style="width:100px;">
+								</td>
+								<td class="text-right" style="min-width:145px;" ng-show="sql.result.info.table != ''">
+									<button class="btn btn-success" ng-click="sql.addRow()" type="submit"><i class="fa fa-plus"></i></button>
+								</td>
+						</table>
+					</div>
+				</div>
+				
+				<div class="panel panel-default">
+					<div class="panel-heading">Drop table {{sql.tableName}}<i ng-show="sql.ajax" class="loading fa fa-cog fa-2x"></i></div>
+					<div class="alert alert-warning" role="alert" style="margin:0px;">
+						<b>WARNING!</b> Dropping tables in your database permanently deletes the table and all the data stored in that table. 
+						Make sure that none of your applications or websites rely on information contained in the table(s) you are deleting.
+						<div class="text-right" style="margin:5px;">
+							<span style="margin-right:15px;">
+								Enable: <input type="checkbox" ng-model="sql.enableDrop">
+							</span>
+							<button style="opacity:{{(sql.enableDrop) ? 1 : 0.5}};" class="btn btn-{{(sql.enableDrop) ? 'danger' : 'default'}} transitionAll" type="submit" ng-click="sql.dropTalbe()">Drop</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

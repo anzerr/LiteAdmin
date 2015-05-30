@@ -2,7 +2,7 @@ var Jinx;
 (function(base) {
 	"use strict";
 
-	base.controller.controller('TableCtrl', ['$scope', '$routeParams', '$http', function($scope, $routeParams, $http) {
+	base.controller.controller('TableCtrl', ['$scope', '$routeParams', '$http', '$timeout', '$cookies', function($scope, $routeParams, $http, $timeout, $cookies) {
 		$scope.sql = {
 			current: 'SELECT * FROM ' + $routeParams.TName + ';',
 			run: function() {
@@ -136,7 +136,7 @@ var Jinx;
 				var call = function(where) {
 					self.current = base._query.add("DELETE FROM " + self.tableName + where);
 					base.query($http, self.current, self.databaseName).success(function(res) {
-						self.current = 'SELECT * FROM ' + $routeParams.TName + ';';
+						self.current = 'SELECT * FROM ' + self.tableName + ';';
 						$scope.sql.run();
 					});
 				}
@@ -158,7 +158,11 @@ var Jinx;
 			}
 		}
 		
+		base._connection.Init($cookies, $http);
 		$scope.sql.run();
+		$timeout(function() {
+			$('.jinxloadPage').css('opacity', '1');
+		}, 250);
 	}]);
 	
 })(Jinx || (Jinx = {}));

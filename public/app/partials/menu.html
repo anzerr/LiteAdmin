@@ -5,6 +5,10 @@
 			<a class="list-group-item active" ng-click="db.loadTables(key)"><i ng-if="!value.display" class="fa fa-plus"></i> <i class="fa fa-database"></i> {{value.name}}</a>
 			<a ng-href="#/show/{{value.name}}/{{vin}}" class="list-group-item" ng-hide="!value.display" ng-repeat="(kin, vin) in value.table">{{vin}}</a>
 		</div>
+		
+		<div ng-if="db.database.length == 0" class="text-center Clickable" style="color:white;font-size:20px;" ng-click="db.Reload()">
+			<span>Reload <i class="loading fa fa-refresh fa-2x"></i></span>
+		</div>
 	</div>
 	<div class="jinxCollaps"><i class="fa fa-cog fa-2x"></i></div>
 </div>

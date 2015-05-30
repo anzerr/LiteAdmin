@@ -6,10 +6,13 @@ var Jinx;
 
 	var partials = '/public/app/partials/';
 	
-	base.controller = angular.module('appControllers', []);
+	base.controller = angular.module('appControllers', [
+		'ngCookies',
+	]);
 	
 	base.app = angular.module('LiteAdmin',[
 		'ngRoute',
+		'ngCookies',
 		'appControllers'
 	]);
 	
@@ -25,9 +28,9 @@ var Jinx;
 		}).
 		when('/structure/:database/:TName', {
 			templateUrl: partials + 'table/structure.html',
-			controller: 'TableCtrl'
+			controller: 'StructureCtrl'
 		}).
-		when('/sql/:database/:TName', {
+		when('/sql/:database', {
 			templateUrl: partials + 'table/sql.html',
 			controller: 'TableCtrl'
 		}).
@@ -52,6 +55,55 @@ var Jinx;
 		});
 	}]);
 
+	
+	// FUNC
+	base._connection = {
+		s: {
+			host: 'localhost',
+			user: 'root',
+			password: '',
+			port: '',
+		},
+		error: [],
+		init: false,
+		tested: false,
+		Init: function($cookies, $http) {
+			if (this.init) {
+				return (true);
+			}
+			var self = this;
+			try {
+				self.s = JSON.parse($cookies.sqlConfig);
+			} catch (e) {
+				$cookies.sqlConfig = JSON.stringify(self.s);	
+			}
+			this.init = true;
+			this.Test($http);
+		},
+		Save: function($cookies, $http) {
+			$cookies.sqlConfig = JSON.stringify(this.s);
+			this.Test($http);
+		},
+		Test: function($http) {
+			var self = this;
+			self.tested = false;
+			base.query($http, 'SHOW DATABASES;').success(function(res) {
+				self.error = res.error;
+				self.tested = true;
+			});
+		},
+		Get: function() {
+			if (!this.init) {
+				return ({});
+			}
+			return ({
+				sql: 'mysql:host=' + this.s.host + ((this.s.port != '') ? ';port=' + this.s.port : ''),
+				user: this.s.user,
+				pwd: this.s.password,
+			});
+		}
+	}
+	
 	base._query = {
 		_database:'',
 		set:function(a) {
@@ -64,9 +116,8 @@ var Jinx;
 		},
 	}
   
-	// FUNC
 	base.query = function($http, q, d) {
-		return ($http({method: 'post', url: '/', data: {c: 'database', a: 'query', p: {query: q, database: (isset(d)) ? d : ''}}}));
+		return ($http({method: 'post', url: '/', data: {c: 'database', a: 'query', p: {connect: base._connection.Get(), query: q, database: (isset(d)) ? d : ''}}}));
 	}
   
 })(Jinx || (Jinx = {}));
