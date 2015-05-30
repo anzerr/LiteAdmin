@@ -15,8 +15,8 @@ var Jinx;
 					console.log(res);
 					try {
 						self.result = res
-						self.page = 0;
 						self.max = Math.ceil(res.data.length / self.display);
+						self.page = Math.min(self.page, self.max);
 						self.tableName = (isset(self.result.info.table) && self.result.info.table != '') ? self.result.info.table : '';
 						self.ajax = false;
 					} catch (e) {
@@ -89,7 +89,8 @@ var Jinx;
 			BuildWhere: (function() {
 				
 				var format = function(key, self) {
-					return (" WHERE " +self.result.name[self.result.info.pkey]+ " = '" + self.result.data[key][self.result.info.pkey] + "';")
+					var tmp = self.save[key] || self.result.data[key];
+					return (" WHERE " +self.result.name[self.result.info.pkey]+ " = '" + base.escapeRegExp(tmp[self.result.info.pkey]) + "';")
 				}
 				
 				return (function(key, func) {
@@ -116,7 +117,7 @@ var Jinx;
 					var a = "UPDATE " + self.tableName + " SET ", b = 0;
 					for (var i in self.result.name) {
 						if (self.save[key][i] != self.result.data[key][i]) {
-							a += ((b != 0) ? ', ' : '' ) + self.result.name[i] + " = '" + ((isset(self.result.data[key][i])) ? self.result.data[key][i] : '') + "'";
+							a += ((b != 0) ? ', ' : '' ) + self.result.name[i] + " = '" + base.escapeRegExp((isset(self.result.data[key][i])) ? self.result.data[key][i] : '') + "'";
 							b += 1;
 						}
 					}

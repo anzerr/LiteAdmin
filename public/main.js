@@ -30,7 +30,7 @@ var Jinx;
 			templateUrl: partials + 'table/structure.html',
 			controller: 'StructureCtrl'
 		}).
-		when('/sql/:database', {
+		when('/sql/:database/:TName', {
 			templateUrl: partials + 'table/sql.html',
 			controller: 'TableCtrl'
 		}).
@@ -40,7 +40,7 @@ var Jinx;
 		}).
 		when('/insert/:database/:TName', {
 			templateUrl: partials + 'table/insert.html',
-			controller: 'TableCtrl'
+			controller: 'StructureCtrl'
 		}).
 		when('/export/:database/:TName', {
 			templateUrl: partials + 'table/export.html',
@@ -114,6 +114,30 @@ var Jinx;
 			this.list.push({q:a, d:(isset(b)) ? b : ''});
 			return (a);
 		},
+	}
+  
+	base.escapeRegExp = function(str) {
+		return (str+'').replace(/[\0\x08\x09\x1a\n\r"'\\\%]/g, function (char) {
+			switch (char) {
+				case "\0":
+					return "\\0";
+				case "\x08":
+					return "\\b";
+				case "\x09":
+					return "\\t";
+				case "\x1a":
+					return "\\z";
+				case "\n":
+					return "\\n";
+				case "\r":
+					return "\\r";
+				case "\"":
+				case "'":
+				case "\\":
+				case "%":
+					return "\\"+char;
+			}
+		});
 	}
   
 	base.query = function($http, q, d) {

@@ -5,7 +5,7 @@ var Jinx;
 	var tabs = [
 		{name:'Show', url:'/show/:database/:TName', icon:'fa fa-list'},
 		{name:'Structure', url:'/structure/:database/:TName', icon:'fa fa-link'},
-		{name:'Sql', url:'/sql/:database', icon:'fa fa-code'},
+		{name:'Sql', url:'/sql/:database/:TName', icon:'fa fa-code'},
 		{name:'Rechercher', url:'/rechercher/:database/:TName', icon:'fa fa-search'},
 		{name:'Insert', url:'/insert/:database/:TName', icon:'fa fa-indent'},
 		{name:'Export', url:'/export/:database/:TName', icon:'fa fa-sign-out'},

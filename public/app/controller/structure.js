@@ -51,8 +51,9 @@ var Jinx;
 						b += 1;
 					}
 				}
-				a = "ALTER TABLE " + self.tableName + " CHANGE " + self.save[key][0] + " " + data[key][0] + " " + data[key][1] + ((data[key][2] == "NO") ? ' NOT NULL': '') + ";"
-
+				a = "ALTER TABLE " + self.tableName + " CHANGE " + self.save[key][0] + " " + data[key][0] + " " + data[key][1] + ((data[key][2] == "NO") ? ' NOT NULL': '');
+				a += ((isset(data[key][5]) && data[key][5] != '')? " "+data[key][5] : '') + ";";
+				
 				if (b != 0) {
 					self.current = base._query.add(a);
 					base.query($http, self.current, self.databaseName).success(function(res) {
@@ -70,7 +71,8 @@ var Jinx;
 			},
 			addRow: function() {
 				var self = this;
-				var a = "ALTER TABLE " + self.tableName + " ADD " + self.add[0] + " " + self.add[1] + ((self.add[2] == "NO") ? ' NOT NULL': '') + ";"
+				var a = "ALTER TABLE " + self.tableName + " ADD " + self.add[0] + " " + self.add[1] + ((self.add[2] == "NO") ? ' NOT NULL': '');
+				a += ((isset(self.add[5]) && self.add[5] != '')? " "+self.add[5] : '') + ";";
 				
 				self.current = base._query.add(a);
 				base.query($http, self.current, self.databaseName).success(function(res) {
@@ -102,6 +104,46 @@ var Jinx;
 						self.current = 'SHOW COLUMNS FROM ' + self.tableName + ';',
 						$scope.sql.run();
 					}
+				});
+			},
+			insertData:[],
+			insertLock: false,
+			insertError:[],
+			insertRun: function() {
+				var a = "INSERT INTO " + this.tableName + " (", b = 0, self = this;
+				
+				var pid = null, pset = false;
+				for (var i in this.result.data) {
+					if (this.result.data[i][3] == 'PRI') {
+						pid = i;
+						if (isset(this.insertData[i]) && this.insertData[i] != '') {
+							pset = true;
+						}
+						break;
+					}
+				}
+				
+				for (var i in this.result.data) {
+					if (i != pid || (i == pid && pset)) {
+						a += ((b != 0) ? ', ' : '') + this.result.data[i][0]
+						b += 1;
+					}
+				}
+				a += ") VALUES (";
+				b = 0;
+				for (var i in this.insertData) {
+					if (i != pid || (i == pid && pset)) {
+						a += ((b != 0) ? ', ' : '') + "'"+base.escapeRegExp(this.insertData[i])+"'";
+						b += 1;
+					}
+				}
+				console.log("cat");
+				a += ");";
+				self.current = base._query.add(a);
+				self.insertLock = false;
+				base.query($http, a, self.databaseName).success(function(res) {
+					self.insertError = res.error;
+					self.insertLock = true;
 				});
 			},
 		}

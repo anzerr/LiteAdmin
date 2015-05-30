@@ -2,6 +2,48 @@
 	<div class="row" style="margin:0px;">
 		<jinx-tab></jinx-tab>
 		
-		<div>under work</div>
-	<div>
-<div>
+		<div class="jinxloadPage">
+			<div style="margin-top:20px;" class="col-md-12">	
+				<div ng-show="(sql.insertLock == true)">
+					<div class="alert alert-danger" role="alert" ng-repeat="(key, value) in sql.insertError">
+						<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+						<span class="sr-only">Error:</span> 
+						{{value}}
+						<div>{{sql.current}}</div>
+					</div>
+					<div class="alert alert-success" role="alert" ng-if="(sql.insertError.length == 0)">
+						<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+						<span class="sr-only">Success:</span> 
+						Successfully connected to the sql server.
+					</div>
+				</div>
+			</div>
+			
+			<div style="margin-top:20px;" class="col-md-12" ng-show="(sql.result.data.length > 0)">
+				<div class="panel panel-default">
+					<div class="panel-heading">Insert into "{{sql.tableName}}" <i ng-show="sql.ajax" class="loading fa fa-cog fa-2x"></i></div>
+					<div class="col-md-12 table-responsive" style="float: none;">
+						<table class="table table-condensed">
+							<tr>
+								<th ng-repeat="i in sql.range(3) track by $index">{{sql.result.name[$index]}}</th>
+								<th class="text-right"><i class="fa fa-cogs"></i> action</th>
+							</tr>
+							<tr ng-repeat="(key, value) in sql.result.data track by $index" ng-if="(value != null)">
+								<td ng-repeat="i in sql.range(3) track by $index">
+									{{value[$index]}}
+								</td>
+								<td class="text-right" style="min-width:200px;" ng-show="sql.result.info.table != ''">
+									<textarea class="jinxTextarea" ng-model="sql.insertData[key]"></textarea>
+								</td>
+								<td ng-show="sql.result.info.table == ''" style="color:gray;">unknown table</td>
+							</tr>
+						</table>
+						<div class="text-right" style="margin:5px;">
+							<button class="btn btn-{{(!sql.ajax) ? 'primary' : 'default'}} transitionAll" type="submit" ng-click="sql.insertRun()">Submit</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

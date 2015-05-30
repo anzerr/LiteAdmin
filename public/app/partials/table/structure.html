@@ -2,14 +2,16 @@
 	<div class="row" style="margin:0px;">
 		<jinx-tab></jinx-tab>
 		
-		<div class="jinxloadPage">		
-			<div style="margin-top:20px;" class="col-md-12" ng-show="(sql.result.data.length > 0)">
+		<div class="jinxloadPage">
+			<div style="margin-top:20px;" class="col-md-12">	
 				<div class="alert alert-danger" role="alert" ng-repeat="(key, value) in sql.result.error">
 					<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
 					<span class="sr-only">Error:</span> 
 					{{value}}
 				</div>
-			
+			</div>
+
+			<div class="col-md-12" ng-show="(sql.result.data.length > 0)">	
 				<div class="panel panel-default">
 					<div class="panel-heading">{{sql.tableName}} <i ng-show="sql.ajax" class="loading fa fa-cog fa-2x"></i></div>
 					<div class="col-md-12 table-responsive" style="float: none;">
