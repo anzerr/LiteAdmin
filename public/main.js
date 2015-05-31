@@ -36,7 +36,7 @@ var Jinx;
 		}).
 		when('/rechercher/:database/:TName', {
 			templateUrl: partials + 'table/rechercher.html',
-			controller: 'TableCtrl'
+			controller: 'HomeCtrl'
 		}).
 		when('/insert/:database/:TName', {
 			templateUrl: partials + 'table/insert.html',
@@ -44,11 +44,11 @@ var Jinx;
 		}).
 		when('/export/:database/:TName', {
 			templateUrl: partials + 'table/export.html',
-			controller: 'TableCtrl'
+			controller: 'HomeCtrl'
 		}).
 		when('/import/:database/:TName', {
 			templateUrl: partials + 'table/import.html',
-			controller: 'TableCtrl'
+			controller: 'ImportCtrl'
 		}).
 		otherwise({
 			redirectTo: '/home'
@@ -106,14 +106,20 @@ var Jinx;
 	
 	base._query = {
 		_database:'',
+		_pos: 0,
 		set:function(a) {
 			this._database = a;
 		},
 		list:[],
 		add:function(a, b) {
 			this.list.push({q:a, d:(isset(b)) ? b : ''});
+			this._pos = this.list.length;
 			return (a);
 		},
+		qGet: function(a) {
+			this._pos = Math.min(Math.max(this._pos + a, 0), this.list.length - 1);
+			return (this.list[this._pos]);
+		}
 	}
   
 	base.escapeRegExp = function(str) {

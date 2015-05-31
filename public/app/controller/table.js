@@ -2,7 +2,7 @@ var Jinx;
 (function(base) {
 	"use strict";
 
-	base.controller.controller('TableCtrl', ['$scope', '$routeParams', '$http', '$timeout', '$cookies', function($scope, $routeParams, $http, $timeout, $cookies) {
+	base.controller.controller('TableCtrl', ['$scope', '$routeParams', '$http', '$timeout', '$cookies', '$route', function($scope, $routeParams, $http, $timeout, $cookies, $route) {
 		$scope.sql = {
 			current: 'SELECT * FROM ' + $routeParams.TName + ';',
 			run: function() {
@@ -38,8 +38,13 @@ var Jinx;
 			},
 			editTable: function(key) {
 				var elem = this.result.data[key], self = this;
+				console.log(elem);
+				console.log(this.result.info)
 				if (elem.edit == true) {
-					this.updateRow(key);
+					this.updateRow(key);					
+					if (isset(this.result.info.pkey)) {
+						elem.edit = (elem.edit == true) ? false : true;
+					}
 				} else {
 					var old = [];
 					for (var i in elem) {
@@ -49,9 +54,6 @@ var Jinx;
 					this.BuildWhere(key, function() {
 						elem.edit = (elem.edit == true) ? false : true;
 					});
-				}
-				if (isset(this.result.info.pkey)) {
-					elem.edit = (elem.edit == true) ? false : true;
 				}
 			},
 			getNumber: function() {
@@ -156,11 +158,23 @@ var Jinx;
 					});
 				}
 				this.BuildWhere(key, call);
-			}
+			},
+			getSQLHide: function() {
+				return ((base._query._pos == 0) ? -1 : ((base._query._pos == (base._query.list.length - 1)) ? 1 : 0));
+			},
+			getSQL: function(a) {
+				var b = base._query.qGet(a).q
+				this.current = b;
+			},
 		}
 		
 		base._connection.Init($cookies, $http);
-		$scope.sql.run();
+		if ($route.current.$$route.originalPath == '/show/:database/:TName') {
+			$scope.sql.run();
+		} else {
+			$scope.sql.current = '';
+		}
+		
 		$timeout(function() {
 			$('.jinxloadPage').css('opacity', '1');
 		}, 250);

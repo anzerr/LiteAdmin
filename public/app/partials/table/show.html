@@ -13,8 +13,10 @@
 					
 					<div class="panel panel-default">
 						<div class="panel-heading">SQL Query <i ng-show="sql.ajax" class="loading fa fa-cog fa-2x"></i></div>
-						<textarea class="jinxNoGlow" rows="8" ng-model="sql.current"></textarea>
+						<textarea placeholder="Insert query here" class="jinxNoGlow" rows="8" ng-model="sql.current"></textarea>
 						<div class="text-right" style="margin:5px;">
+							<button style="opacity:{{(sql.getSQLHide() != -1) ? 1 : 0.5}};" class="btn btn-primary" type="submit" ng-click="sql.getSQL(-1)"><i class="fa fa-share icon-flipped"></i></button>
+							<button style="opacity:{{(sql.getSQLHide() != 1) ? 1 : 0.5}};" class="btn btn-primary" type="submit" ng-click="sql.getSQL(1)"><i class="fa fa-share"></i></button>
 							<button class="btn btn-{{(!sql.ajax) ? 'primary' : 'default'}} transitionAll" type="submit" ng-click="sql.run()">Submit</button>
 						</div>
 					</div>

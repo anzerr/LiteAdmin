@@ -227,3 +227,25 @@ html, body {
 	width:100%;
 	resize: none; 
 }
+
+.icon-flipped {
+    transform: scaleX(-1);
+    -moz-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    -ms-transform: scaleX(-1);
+}
+
+.jinxDropzone {
+    border: 1px dashed #bbb;
+    border-radius: 5px;
+    padding: 25px;
+    text-align: center;
+    font: 15pt bold;
+    color: #bbb;
+}
+
+.pigeon {
+	width: 50%;
+	max-width: 350px;
+	margin-left: 33%;
+}

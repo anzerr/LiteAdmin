@@ -2,6 +2,53 @@
 	<div class="row" style="margin:0px;">
 		<jinx-tab></jinx-tab>
 		
-		<div>under work</div>
-	<div>
-<div>
+		<div class="jinxloadPage">
+			<div style="margin-top:20px;" class="col-md-12">	
+				<div ng-show="(import.runLock == true)">
+					<div class="alert alert-danger" role="alert" ng-repeat="(key, value) in import.result.error">
+						<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+						<span class="sr-only">Error:</span> 
+						{{value}}
+					</div>
+					<div class="alert alert-success" role="alert" ng-if="(import.result.error.length == 0)">
+						<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+						<span class="sr-only">Success:</span> 
+						Successfully imported.
+					</div>
+				</div>
+			</div>
+			
+			<div class="col-md-12">	
+				<div class="panel panel-default">
+					<div class="panel-heading">Import Upload <i ng-show="import.ajax" class="loading fa fa-cog fa-2x"></i></div>
+					<div>
+						<div jinx-dropzone class="jinxDropzone">Drop Files Here</div>
+					</div>
+				</div>
+			</div>
+			
+			<div style="margin-top:20px;" class="col-md-12" ng-show="(import.file.data.length > 0)">
+				<div class="panel panel-default">
+					<div class="panel-heading">Files <i ng-show="sql.ajax" class="loading fa fa-cog fa-2x"></i></div>
+					<div class="col-md-12 table-responsive" style="float: none;">
+						<table class="table table-condensed">
+							<tr>
+								<th ng-repeat="(key, value) in import.file.name track by $index">{{value}}</th>
+								<th class="text-right"><i class="fa fa-cogs"></i> action</th>
+							</tr>
+							<tr ng-repeat="(key, value) in import.file.data track by $index" ng-if="(value != null)">
+								<td ng-repeat="(kin, vin) in import.file.name track by $index">
+									{{value[vin]}}
+								</td>
+								<td class="text-right" style="min-width:100px;">
+									<button class="btn btn-success" ng-click="import.run(key)" type="submit"><i class="fa fa-floppy-o"></i></button>
+									<button class="btn btn-danger" ng-click="import.remove(key)" type="submit"><i class="fa fa-times"></i></button>
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

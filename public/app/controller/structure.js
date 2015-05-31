@@ -96,15 +96,18 @@ var Jinx;
 					}
 				});
 			},
+			enableDrop: false,
 			dropTalbe: function() {
-				self.current = base._query.add("DROP Table " + self.tableName + ";");
-				base.query($http, self.current, self.databaseName).success(function(res) {
-					self.result.error = res.error;
-					if (self.result.error.length == 0) {
-						self.current = 'SHOW COLUMNS FROM ' + self.tableName + ';',
-						$scope.sql.run();
-					}
-				});
+				if (this.enableDrop) {
+					self.current = base._query.add("DROP Table " + self.tableName + ";");
+					base.query($http, self.current, self.databaseName).success(function(res) {
+						self.result.error = res.error;
+						if (self.result.error.length == 0) {
+							self.current = 'SHOW COLUMNS FROM ' + self.tableName + ';',
+							$scope.sql.run();
+						}
+					});
+				}
 			},
 			insertData:[],
 			insertLock: false,

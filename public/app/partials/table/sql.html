@@ -2,6 +2,70 @@
 	<div class="row" style="margin:0px;">
 		<jinx-tab></jinx-tab>
 		
-		<div>under work</div>
-	<div>
-<div>
+		<div class="jinxloadPage">
+			<div class="col-md-12">								
+				<div class="sql-textarea">
+					<div class="alert alert-danger" role="alert" ng-repeat="(key, value) in sql.result.error">
+						<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+						<span class="sr-only">Error:</span> 
+						{{value}}
+					</div>
+					
+					<div class="panel panel-default">
+						<div class="panel-heading">SQL Query <i ng-show="sql.ajax" class="loading fa fa-cog fa-2x"></i></div>
+						<textarea placeholder="Insert query here" class="jinxNoGlow" rows="8" ng-model="sql.current"></textarea>
+						<div class="text-right" style="margin:5px;">
+							<button style="opacity:{{(sql.getSQLHide() != -1) ? 1 : 0.5}};" class="btn btn-primary" type="submit" ng-click="sql.getSQL(-1)"><i class="fa fa-share icon-flipped"></i></button>
+							<button style="opacity:{{(sql.getSQLHide() != 1) ? 1 : 0.5}};" class="btn btn-primary" type="submit" ng-click="sql.getSQL(1)"><i class="fa fa-share"></i></button>
+							<button class="btn btn-{{(!sql.ajax) ? 'primary' : 'default'}} transitionAll" type="submit" ng-click="sql.run()">Submit</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="col-md-12" style="margin:15px 0px;height:1px;"></div>
+						
+			<div class="col-md-12" ng-show="(sql.result.data.length > 0)">
+				<div class="panel panel-default">
+					<div class="panel-heading">{{sql.tableName}}</div>
+					<div class="col-md-12 table-responsive" style="float: none;">
+						<table class="table table-condensed">
+							<tr>
+								<th ng-repeat="(key, value) in sql.result.name">{{value}}</th>
+							</tr>
+							<tr ng-repeat="i in sql.getNumber() track by $index" ng-if="sql.result.data[i] != null">
+								<td ng-repeat="kin in sql.result.data[i] track by $index">
+									{{kin}}
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+		
+				<div class="col-md-8 col-md-offset-2" style="text-align:center; position:relative;" ng-show="(sql.max > 1)">
+					<nav>
+						<ul class="pagination" style="position:absolute;top:0px;left:0px;z-index:99;">
+							<li ng-if="sql.page >= 1">
+								<span aria-hidden="true" ng-click="sql.page = sql.page - 1">&laquo;</span>
+							</li>
+						</ul>
+						<div id="jinxPage" style="display:inline-block;width:100%;overflow:hidden;z-index:1;">
+							<ul class="pagination" style="width:{{sql.getSize()}}px;margin-left:-{{sql.getPosX()}}px;-webkit-transition: margin 0.5s;transition: margin 0.5s;">
+								<li ng-repeat="a in sql.range(sql.max) track by $index" class="{{(sql.page == $index) ? 'active' : ''}}" ng-click="sql.page = $index"><span>{{$index + 1}}</span></li>
+							</ul>
+						</div>
+						<ul class="pagination" style="position:absolute;top:0px;right:0px;z-index:99;">
+							<li ng-if="sql.page < sql.max - 1">
+								<span aria-hidden="true" ng-click="sql.page = sql.page + 1">&raquo;</span>
+							</li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+		
+			<div class="col-md-12 text-center" ng-show="!(sql.result.data.length > 0)">
+				<span style="color:grey;">Empty</span>
+			</div>
+		</div>
+	</div>
+</div>
