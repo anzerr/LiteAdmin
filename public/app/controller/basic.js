@@ -8,6 +8,12 @@ var Jinx;
 		
 		$scope.config = base._connection;
 		
+		$scope.sql = {
+			Save: function() {
+				base._connection.Save($cookies, $http);
+			}
+		}
+		
 		base._connection.Init($cookies, $http);
 		$timeout(function() {
 			$('.jinxloadPage').css('opacity', '1');
