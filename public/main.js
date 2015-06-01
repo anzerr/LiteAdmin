@@ -112,8 +112,12 @@ var Jinx;
 		},
 		list:[],
 		add:function(a, b) {
-			this.list.push({q:a, d:(isset(b)) ? b : ''});
-			this._pos = this.list.length;
+			if (!isset(this.list[this.list.length - 1]) || this.list[this.list.length - 1].q != a) {
+				this.list.push({q:a, d:(isset(b)) ? b : ''});
+				this._pos = this.list.length;
+			}
+			
+			console.log(this.list);
 			return (a);
 		},
 		qGet: function(a) {

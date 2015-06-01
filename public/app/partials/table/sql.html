@@ -11,6 +11,19 @@
 						{{value}}
 					</div>
 					
+					<div ng-show="(sql.runLock == true)">
+						<div class="alert alert-danger" role="alert" ng-repeat="(key, value) in sql.result.error">
+							<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+							<span class="sr-only">Error:</span> 
+							{{value}}
+						</div>
+						<div class="alert alert-success" role="alert" ng-if="(sql.result.error.length == 0)">
+							<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+							<span class="sr-only">Success:</span> 
+							Successfully imported.
+						</div>
+					</div>
+					
 					<div class="panel panel-default">
 						<div class="panel-heading">SQL Query <i ng-show="sql.ajax" class="loading fa fa-cog fa-2x"></i></div>
 						<textarea placeholder="Insert query here" class="jinxNoGlow" rows="8" ng-model="sql.current"></textarea>

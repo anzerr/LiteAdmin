@@ -2,7 +2,7 @@ var Jinx;
 (function(base) {
 	"use strict";
 
-	base.controller.controller('StructureCtrl', ['$scope', '$routeParams', '$http', '$timeout', '$cookies', function($scope, $routeParams, $http, $timeout, $cookies) {
+	base.controller.controller('StructureCtrl', ['$scope', '$routeParams', '$http', '$timeout', '$cookies', '$location', function($scope, $routeParams, $http, $timeout, $cookies, $location) {
 		$scope.sql = {
 			current: 'SHOW COLUMNS FROM ' + $routeParams.TName + ';',
 			run: function() {
@@ -98,13 +98,17 @@ var Jinx;
 			},
 			enableDrop: false,
 			dropTalbe: function() {
+				var self = this;
+				
 				if (this.enableDrop) {
 					self.current = base._query.add("DROP Table " + self.tableName + ";");
 					base.query($http, self.current, self.databaseName).success(function(res) {
 						self.result.error = res.error;
 						if (self.result.error.length == 0) {
-							self.current = 'SHOW COLUMNS FROM ' + self.tableName + ';',
-							$scope.sql.run();
+							//self.current = 'SHOW COLUMNS FROM ' + self.tableName + ';',
+							//$scope.sql.run();
+							base._reload();
+							$location.path('/');
 						}
 					});
 				}

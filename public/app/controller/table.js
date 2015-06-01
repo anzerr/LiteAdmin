@@ -11,6 +11,7 @@ var Jinx;
 					return (false);
 				}
 				self.ajax = true;
+				self.runLock = false;
 				base.query($http, base._query.add(self.current), $routeParams.database).success(function(res) {
 					console.log(res);
 					try {
@@ -19,11 +20,13 @@ var Jinx;
 						self.page = Math.min(self.page, self.max);
 						self.tableName = (isset(self.result.info.table) && self.result.info.table != '') ? self.result.info.table : '';
 						self.ajax = false;
+						self.runLock = true;
 					} catch (e) {
 						console.log(e);
 					}
 				});
 			},
+			runLock: false,
 			ajax: false,
 			save: [],
 			result: [],
@@ -127,7 +130,7 @@ var Jinx;
 					if (b != 0) {
 						self.current = base._query.add(a);
 						base.query($http, self.current, self.databaseName).success(function(res) {
-							self.reloadRow();
+							self.reloadRow(key);
 						});
 					}
 				}

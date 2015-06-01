@@ -59,7 +59,10 @@ var Jinx;
 			
 			$timeout(function() {
 				collaps.init();
-				scope.db.Reload();
+				base._reload = function() {
+					scope.db.Reload();
+				};
+				base._reload();
 			});
 		}
 		
